@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Api.Data.Context;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
@@ -39,7 +40,22 @@ namespace Api.Data.Repository
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+
+                if (result == null)
+                {
+                    return false;
+                }
+                _dataset.Remove(result);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<TEntity>> GetAllAsync()
