@@ -16,6 +16,11 @@ namespace Api.Data.Repository
             _dataset = _context.Set<TEntity>();
         }
 
+        public async Task<bool> ExistAsync(Guid id)
+        {
+            return await _dataset.AnyAsync(p => p.Id.Equals(id));
+        }
+
         public async Task<TEntity> CreateAsync(TEntity item)
         {
             try
