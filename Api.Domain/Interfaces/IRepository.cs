@@ -7,9 +7,9 @@ namespace Api.Domain.Interfaces
     {
         Task<bool> ExistAsync(Guid id);
         Task<TEntity> CreateAsync(TEntity item);
-        Task<TEntity> UpdateAsync(TEntity item);
+        Task<TEntity?> UpdateAsync(TEntity item);
         Task<bool> DeleteAsync(Guid id);
-        Task<TEntity> GetAsync(Guid id);
+        Task<TEntity?> GetByIdAsync(Guid id);
         Task<List<TEntity>> GetAllAsync();
     }
 }

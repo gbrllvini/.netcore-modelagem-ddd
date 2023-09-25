@@ -35,10 +35,10 @@ namespace Api.Data.Repository
 
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
             return item;
         }
@@ -57,23 +57,37 @@ namespace Api.Data.Repository
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
         public async Task<List<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dataset.ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public async Task<TEntity> GetAsync(Guid id)
+        public async Task<TEntity?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity item)
+        public async Task<TEntity?> UpdateAsync(TEntity item)
         {
             try
             {
@@ -88,10 +102,10 @@ namespace Api.Data.Repository
                 _context.Entry(result).CurrentValues.SetValues(item);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
             return item;
         }
